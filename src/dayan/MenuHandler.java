@@ -23,6 +23,11 @@ public class MenuHandler {
         return new String[a[0]][a[1]];
     }
 
+    /**
+     * Method to initialize message for when a process is completed successfully,
+     * but meant for use after the running process.
+     * @param completeMessage Message for when a process is completed
+     */
     public void setCompleteMessage(String completeMessage) {
         this.completeMessage = completeMessage;
     }
@@ -30,15 +35,15 @@ public class MenuHandler {
     /**
      * show the message when initialization is complete
      */
-    public void showCompleted(){
-        Console.printSimple(this.completeMessage);
+    public void displayCompleted(){
+        Console.writeLine(this.completeMessage);
     }
 
     /**
      * prints the top header for the proceeding prompts
      */
     void printStart(){
-        Console.printSimple(start);
+        Console.writeLine(start);
     }
 
     /**
@@ -46,7 +51,7 @@ public class MenuHandler {
      */
     public void displaySimpleMenu(){
         for (String line: prompts){
-            Console.printSimple(line);
+            Console.writeLine(line);
         }
     }
 
@@ -73,4 +78,10 @@ public class MenuHandler {
         setCompleteMessage(message);
     }
 
+    static String[] createRoomFindInputPrompt(int[] dimensions){
+        return new String[] {
+                "-> Enter floor number("+1+"-"+dimensions[0]+")",
+                "-> Enter room number("+1+"-"+dimensions[1]+")"
+        };
+    }
 }

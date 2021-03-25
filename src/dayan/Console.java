@@ -16,7 +16,11 @@ public class Console {
         scanner = new Scanner(System.in);
     }
 
-    static void printSimple(Object obj){
+    static void write(Object obj){
+        System.out.print(obj);
+    }
+
+    static void writeLine(Object obj){
         System.out.println(obj);
     }
 
