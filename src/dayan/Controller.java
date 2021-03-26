@@ -245,6 +245,7 @@ class Controller {
                     }
                 }
             }
+
             int[][] results = new int[count][2];
             if (count >= 0) System.arraycopy(tempResults, 0, results, 0, count);
             return results;
