@@ -1,19 +1,23 @@
 package dayan;
 
-public class MenuHandler {
-    public String start;
+public class Menu {
+    public String header;
     public String[] prompts;
     public String completeMessage;
 
-    public MenuHandler(String start, String[] prompts) {
-        this.start = start;
+    public Menu(String header, String[] prompts) {
+        this.header = header;
         this.prompts = prompts;
     }
 
-    public MenuHandler(String start, String[] prompts, String completeMessage) {
-        this.start = start;
+    public Menu(String header, String[] prompts, String completeMessage) {
+        this.header = header;
         this.prompts = prompts;
         this.completeMessage = completeMessage;
+    }
+
+    public Menu(String header) {
+        this.header = header;
     }
 
     /**
@@ -36,14 +40,17 @@ public class MenuHandler {
      * show the message when initialization is complete
      */
     public void displayCompleted(){
-        Console.writeLine(this.completeMessage);
+        System.out.println(this.completeMessage);
+    }
+    public static void displayCompleted(String s){
+        System.out.println(s);
     }
 
     /**
      * prints the top header for the proceeding prompts
      */
-    void printStart(){
-        Console.writeLine(start);
+    void displayHeader(){
+        System.out.println(this.header);
     }
 
     /**
@@ -51,13 +58,13 @@ public class MenuHandler {
      */
     public void displaySimpleMenu(){
         for (String line: prompts){
-            Console.writeLine(line);
+            System.out.println(line);
         }
     }
 
     /**
      * prompts the user for size of the hotel via console UI
-     * @return
+     * @return returns a list of numbersm inputted by user.
      */
     public int[] getIntegersFromPrompts() {
         int[] indexes = new int[prompts.length];
@@ -83,5 +90,15 @@ public class MenuHandler {
                 "-> Enter floor number("+1+"-"+dimensions[0]+")",
                 "-> Enter room number("+1+"-"+dimensions[1]+")"
         };
+    }
+
+    void displayCheckInResult(String name, boolean successful) {
+        if (successful){
+            String complete = "=> "+ name +" checked in successfully!";
+            displayCompleted(complete);
+            return;
+        }
+        String failed = "-> This room is already checked in, Please find another room!";
+        displayCompleted(failed);
     }
 }

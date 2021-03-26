@@ -2,7 +2,7 @@ package dayan;
 
 public class Main {
     public static void main(String[] args) {
-        MainController.Interface.createHotel();
-        MainController.Process.loopUserOptions();
+        Controller.Interface.createHotel();
+        Controller.Process.loopUserOptions();
     }
 }

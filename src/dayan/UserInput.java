@@ -1,6 +1,6 @@
 package dayan;
 
-class Occupant {
+class UserInput {
     int floorNo;
     int roomNo;
     String name;

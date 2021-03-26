@@ -1,5 +1,7 @@
 package dayan;
 
+import java.util.Scanner;
+
 /**
  * This class contains functions
  * for inputting and outputting data
@@ -7,21 +9,11 @@ package dayan;
  *
  */
 
-import java.util.Scanner;
-
 public class Console {
     static Scanner scanner;
 
     static {
         scanner = new Scanner(System.in);
-    }
-
-    static void write(Object obj){
-        System.out.print(obj);
-    }
-
-    static void writeLine(Object obj){
-        System.out.println(obj);
     }
 
     static void printWithPadding(Object obj){
@@ -34,21 +26,14 @@ public class Console {
 
     static int getUserInput(String message){
         System.out.print(message + ": ");
-        return scanner.nextInt();
+        String s = scanner.nextLine();
+        if (Validator.isDigit(s))
+            return Integer.parseInt(s);
+        return 0;
     }
 
     static String getStringInput(String message){
         System.out.print(message + ": ");
-        scanner.nextLine();
         return scanner.nextLine();
-    }
-
-    static void clearScreen(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    static void newLine(){
-        System.out.println();
     }
 }
