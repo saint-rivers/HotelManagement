@@ -210,7 +210,11 @@ class Controller {
                 Menu menu = new Menu(SEARCH_GUEST_HEADER);
                 menu.displayHeader();
                 String name = getOccupantNameInput("-> enter guest's name to search");
-                int[][] foundRooms = searchForKey(rooms, name);
+                int[][] roomsFound = searchForKey(rooms, name);
+                displayCheckedInOccupant(name, roomsFound);
+            }
+
+            private static void displayCheckedInOccupant(String name, int[][] foundRooms) {
                 if (foundRooms != null) {
                     if (foundRooms.length <= 0) {
                         String message = "=> Result of searching : \n" +
