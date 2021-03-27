@@ -44,7 +44,7 @@ public class Validator {
     }
 
     static boolean isDigit(String input){
-        String search = "[0-9]";
+        String search = "[0-9]{1,2}";
         return Pattern.matches(search, input);
     }
 

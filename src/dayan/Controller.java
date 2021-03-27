@@ -91,7 +91,7 @@ class Controller {
     static class HotelService {
 
         static final String INFORMATION_HEADER = "---------- Display hotel information ----------";
-        static final String CHECK_IN_HEADER = "---------- Checkin to hotel ----------";
+        static final String CHECK_IN_HEADER = "---------- Check in to hotel ----------";
         static final String CHECK_OUT_HEADER = "---------- Checkout from hotel ----------";
         static final String SEARCH_GUEST_HEADER = "---------- Search Guest's Name ----------";
         static final String NAME_INPUT_PROMPT = "-> Enter guest's name";
@@ -99,9 +99,9 @@ class Controller {
 
         static class CheckInInterface {
             private static void checkIn() {
-                UserInput userInput;
                 Menu menu = new Menu(CHECK_IN_HEADER, ROOM_PROMPTS);
 
+                UserInput userInput;
                 userInput = HotelIO.getFloorAndRoomInput(menu);
                 if (cannotFindRoom(userInput)) return;
 
@@ -151,7 +151,7 @@ class Controller {
             }
 
             private static void displayMissingCheckout() {
-                String checkOutFailed = "=> No one checkin in this room, you can't checkout!";
+                String checkOutFailed = "=> No one check in in this room, you can't checkout!";
                 System.out.println(checkOutFailed);
             }
 
@@ -171,6 +171,7 @@ class Controller {
         }
 
         static class HotelIO{
+
             private static UserInput getFloorAndRoomInput(Menu menu) {
                 UserInput userInput = new UserInput();
                 int[] currentRoom = menu.getIntegersFromPrompts();
@@ -184,14 +185,25 @@ class Controller {
             }
 
             private static void showAllRoomDetails() {
+                int width = rooms[0].length;
+
                 System.out.println(INFORMATION_HEADER);
+
+                Console.printHoritontalDivider(width);
+                Console.printHeaderRow("Room", width);
+                Console.printHoritontalDivider(width);
+
                 for (int i = 0; i < rooms.length; i++) {
-                    Console.printRowHead("Floor", i+1);
+                    Console.printWithPadding("Floor", i+1);
                     for (int j = 0; j < rooms[i].length; j++) {
+                        Console.printVerticalCellDivider();
                         Console.printWithPadding(rooms[i][j]);
                     }
+                    Console.printVerticalCellDivider();
                     System.out.println();
+                    Console.printHoritontalDivider(width);
                 }
+                System.out.println();
             }
 
             private static void displayRoomNumberOfOccupant(){
@@ -209,8 +221,10 @@ class Controller {
                     for (int[] foundRoom : foundRooms) {
                         if (foundRoom == null) continue;
                         System.out.println();
+                        int floor = foundRoom[0];
+                        int room = foundRoom[1];
                         String message = "=> Result of search : \n" +
-                                "Guest's Name : " + name + " is in Room : '" + foundRoom[0] + "' On Floor : '" + foundRoom[1] + "' ";
+                                "Guest's Name : " + name + " is in Room : '" + room + "' On Floor : '" + floor + "' ";
                         System.out.println(message);
                     }
                 }
@@ -218,13 +232,12 @@ class Controller {
         }
 
         private static boolean cannotFindRoom(UserInput userInput) {
-            if (!hotelRoomValidator.isInRange(userInput.floorNo, userInput.roomNo))
-            {
-                String errorMessage = "Room doesn't exist.";
-                System.out.println(errorMessage);
-                return true;
+            if (hotelRoomValidator.isInRange(userInput.floorNo, userInput.roomNo)) {
+                return false;
             }
-            return false;
+            String errorMessage = "Room doesn't exist.";
+            System.out.println(errorMessage);
+            return true;
         }
 
         private static boolean isVacant(String[][] rooms, UserInput userInput){
@@ -239,8 +252,8 @@ class Controller {
             for (int i = 0; i < arr.length; i++) {
                 for (int j = 0; j < arr[0].length; j++) {
                     if (Validator.isMatchingName(arr[i][j], search)) {
-                        tempResults[count][0] = i + 1;
-                        tempResults[count][1] = j + 1;
+                        tempResults[count][0] = i + 1;  // off by one error
+                        tempResults[count][1] = j + 1;  // off by one error
                         ++count;
                     }
                 }
